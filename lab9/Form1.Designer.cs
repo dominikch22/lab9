@@ -125,7 +125,7 @@ namespace lab9
             this.Controls.Add(this.radio);
             this.Controls.Add(this.canvas);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Turbo kolędy 2023";
             ((System.ComponentModel.ISupportInitialize)(this.canvas)).EndInit();
             this.ResumeLayout(false);
 
