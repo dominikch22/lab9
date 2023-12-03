@@ -144,8 +144,10 @@ namespace lab9
             {
                 while (true) {
                     Random random = new Random();
+
                     int randomMusic = random.Next(1, 3);
-                    System.Media.SoundPlayer player = new System.Media.SoundPlayer($"C:\\Users\\DCH\\Downloads\\{randomMusic}.wav");
+
+                    System.Media.SoundPlayer player = new System.Media.SoundPlayer(Properties.Resources.ResourceManager.GetStream($"_{randomMusic}"));
                     player.PlaySync();
                 }
                
