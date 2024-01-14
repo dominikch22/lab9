@@ -32,7 +32,9 @@ namespace lab9
         private List<BaubleModel> BaublesPoints;
 
         private Thread AudioThread;
-      
+        private static System.Media.SoundPlayer player;
+        private bool radioOn = false;
+
 
 
 
@@ -54,7 +56,7 @@ namespace lab9
             ifDrawLamps = true;
             ifDrawStar = true;
 
-            AudioThread = new Thread(startRadioThread);
+            //AudioThread = new Thread(startRadioThread);
 
         }
 
@@ -96,22 +98,15 @@ namespace lab9
         }
 
         public void toggleAudio() {
-            if (AudioThread.IsAlive)
+            if (radioOn == false)
             {
-                try
-                {
-                    AudioThread.Abort();
-                }
-                catch { }
-                
-
+                Task task = Task.Run(() => startRadio());
+                radioOn = true;
             }
             else {
-                AudioThread = new Thread(startRadioThread);
-                AudioThread.Start();
-
-            }
-
+                player.Stop();
+                radioOn = false;
+            }      
 
         }
 
@@ -139,18 +134,15 @@ namespace lab9
             }
         }
 
-        public static void startRadioThread() {
+        public static async Task startRadio() {
             try
             {
-                while (true) {
-                    Random random = new Random();
+                Random random = new Random();
+                int randomMusic = random.Next(1, 3);
 
-                    int randomMusic = random.Next(1, 3);
+                player = new System.Media.SoundPlayer(Properties.Resources.ResourceManager.GetStream($"_{randomMusic}"));
 
-                    System.Media.SoundPlayer player = new System.Media.SoundPlayer(Properties.Resources.ResourceManager.GetStream($"_{randomMusic}"));
-                    player.PlaySync();
-                }
-               
+                player.Play();         
                
             }
             catch (Exception ex)
